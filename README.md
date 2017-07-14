@@ -5,7 +5,6 @@ The project uses `Scrapy` as web crawler, `Django` as backend framework, `Celery
 
 ## Installation 
 
-
 * Install required dependencies `pip install -r requirements.txt`
 * Make sure `redis` is >= 2.10.5, if not, run `pip install celery[redis]`
 * Start redis-server with `redis-server`
@@ -22,10 +21,6 @@ The project uses `Scrapy` as web crawler, `Django` as backend framework, `Celery
 * TPO username as `username`
 * TPO password as `password`
 
-* verify token as `VT`
-* access token as `AT`
-* TPO username as `username`
-* TPO password as `password`
 ## Tutorials
 
   * https://realpython.com/blog/python/asynchronous-tasks-with-django-and-celery/
