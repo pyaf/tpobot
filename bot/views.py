@@ -6,25 +6,40 @@ from django.views.decorators.csrf import csrf_exempt
 from tpobot.settings import AT, VT
 import json
 import requests
+import logging
 
-from .models import *
+from bot.models import *
+from bot.messages import *
+from bot.tasks import *
 
+def newSucker(psid):
+    print('running catchTheSucker')
+    url = 'https://graph.facebook.com/v2.6/{0}?fields=first_name,last_name,'\
+            'profile_pic,locale,timezone,gender&access_token={1}'
+    url = url.format(psid, AT)
+    logging.info(url)
+    response = requests.get(url)
+    data = response.json()
+    logging.info(data)
+
+    sucker, created = Sucker.objects.get_or_create(psid=psid)
+    if created:
+        first_name = data['first_name']
+        last_name = data['last_name']
+        profile_pic = data['profile_pic']
+        gender = data['gender']
+        logging.info("New Sucker")
+        sucker.first_name = first_name
+        sucker.last_name = last_name
+        sucker.gender = gender
+        sucker.profile_pic = profile_pic
+        sucker.save()
+
+    return (sucker, created)
 
 class IndexView(generic.View):
     def get(self, request, *args, **kwargs):
         return HttpResponse("lol, don't do this!")
-
-
-def post_facebook_message(fbid, recevied_message):
-    url = 'https://graph.facebook.com/v2.6/me/messages?access_token={0}'
-    url = url.format(AT)
-    response_msg = json.dumps({
-                        "recipient":{"id":fbid},
-                        "message": {"text":recevied_message}
-                        })
-    headers = {"Content-Type": "application/json"}
-    status = requests.post(url, headers=headers, data=response_msg)
-    print('post message status:', status.json())
 
 
 class BotView(generic.View):
@@ -48,8 +63,9 @@ class BotView(generic.View):
                     text =  message['message']['text']
                     psid = message['sender']['id']
                     print(text, psid)
-                    post_facebook_message(psid, message['message']['text'])
+                    sucker, created = newSucker(psid)
+                    if created:
+                        send_welcome_message.delay(sucker, psid)
+                    else:
+                        send_facebook_message.delay(sucker, psid, message['message']['text'])
         return HttpResponse()
-
-
-

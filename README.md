@@ -1,7 +1,7 @@
 # TPO IIT (BHU) Bot
 
 An utterly fantastic facebook messenger bot to give updates of Traning and Placement portal of IIT (BHU).
-The project uses `Scrapy` as web crawler, `Django` as backend framework, `Celery` for asynchronous task manager, `Redis` as message broker for celery and `Ngrok` to setup a secure tunnel to localhost for development purposes.
+The project uses `Scrapy` as web crawler, `Django` as backend framework, `Celery` as asynchronous task manager, `Redis` as message broker for celery and `Ngrok` to setup a secure tunnel to localhost for development purposes.
 
 ## Installation 
 
@@ -10,7 +10,7 @@ The project uses `Scrapy` as web crawler, `Django` as backend framework, `Celery
 * Start redis-server with `redis-server`
 * Use ngrok with `./ngrok http 8000`
 * Check celery workers with `celery -A tpobot worker -l info` 
-* Migrate db `python manage.py migrate` 
+* Migrate db `python manage.py migrate`
 * Crawl TPO portal and store/update Companies' Data in db by `python spider.py`
 
 
@@ -26,5 +26,9 @@ The project uses `Scrapy` as web crawler, `Django` as backend framework, `Celery
   * https://realpython.com/blog/python/asynchronous-tasks-with-django-and-celery/
   * http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#tut-celery
   * http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
+
+## Some Help
+
+  * https://stackoverflow.com/a/35481577/6300703
 
 ## License: MIT

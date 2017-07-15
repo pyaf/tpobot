@@ -34,6 +34,8 @@ class Sucker(models.Model):
     first_name = models.CharField(max_length=150, null=True, blank=True)
     last_name = models.CharField(max_length=150, null=True, blank=True)
     profile_pic = models.TextField(validators=[URLValidator()], null=True, blank=True)
+    gender = models.CharField(max_length=100, null=True, blank=True)
+    valid = models.BooleanField(default=True)
 
     def __str__(self):
         return "%s %s" %(self.first_name, self.last_name)
