@@ -113,6 +113,20 @@ def newUser(psid):
     send_msg(psid, msg)
 
 
+def toggleUserSubcription(psid, flag=False):
+    user = User.objects.get(psid=psid)
+    if (flag and not user.subscribed) or (not flag and user.subscribed):
+        user.subscribed = flag
+        user.save()
+        if flag:
+            send_msg(psid, message_dict['activate'])
+        else:
+            send_msg(psid, message_dict['deactivate'])
+    else:
+
+        msg = 'Your account is already so. 😪'
+        send_msg(psid, msg)
+    return flag
 
 @shared_task
 def analyseMessage(psid, message):
@@ -125,31 +139,46 @@ def analyseMessage(psid, message):
             if response['greetings'][0]['confidence'] > 0.80:
                 msg = message_dict['greetings']
                 send_msg(psid, msg)
-        except:
-            pass
+        except Exception as e:
+            logging.info("\nGot Exception in greeting %s" %e)
+
         try:
-            intent = response['intent'][0] 
-            if intent:
-                if intent['value']=='haalchaal' and intent['confidence'] > 0.80:
-                    msg = message_dict['haalchaal']
-                    send_msg(psid, msg)
-                if intent['value']=='intern_update' and intent['confidence'] > 0.80:
-                    pass
-                if intent['value']=='feature' and intent['confidence'] > 0.80:
-                    msg = message_dict['features']
-                    send_msg(psid, msg)
-        except:
-            pass
+            intent_list = response['intent'] 
+            for intent in intent_list:
+                if intent:
+                    if intent['value']=='haalchaal' and intent['confidence'] > 0.80:
+                        msg = message_dict['haalchaal']
+                        send_msg(psid, msg)
+                    if intent['value']=='update' and intent['confidence'] > 0.80:
+                        pass
+                    if intent['value']=='feature' and intent['confidence'] > 0.80:
+                        msg = message_dict['features']
+                        send_msg(psid, msg)
+                    if intent['value']=='help' and intent['confidence'] > 0.80:
+                        msg = message_dict['help']
+                        send_msg(psid, msg)
+                    if intent['value']=='deactivate' and intent['confidence'] > 0.75:
+                        msg = toggleUserSubcription(psid, flag=False)
+                    if intent['value']=='activate' and intent['confidence'] > 0.75:
+                        msg = toggleUserSubcription(psid, flag=True)
+
+                    if intent['value']=='happiness' and intent['confidence'] > 0.60:
+                        msg = '😁'
+                        send_msg(psid, msg)
+
+        except Exception as e:
+            logging.info("\nGot Exception in intent %s" %e)
+
         try:
             question = response['question'][0]
-            if question['value']=='master' and question['confidence'] > 0.80:
+            if question['value']=='master' and question['confidence'] > 0.90:
                 msg = message_dict['master']
                 print('\ngot master', msg)
                 send_msg(psid, msg)
-        except:
-            pass
+        except Exception as e:
+            logging.info("\nGot Exception in question %s" %e)
 
-    if not msg:
+    if msg is None:
         msg = message_dict['no_idea']
         send_msg(psid, msg)
 

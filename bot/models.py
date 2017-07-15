@@ -42,6 +42,7 @@ class User(models.Model):
     department = models.CharField(max_length=25, null=True, blank=True)
     profile_completed = models.BooleanField(default=False)
     valid = models.BooleanField(default=True)
+    subscribed = models.BooleanField(default=True)
 
     def __str__(self):
         return "%s %s" %(self.first_name, self.last_name)
