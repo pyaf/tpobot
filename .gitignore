@@ -5,6 +5,7 @@ staticfiles
 .env
 help.txt
 db.sqlite3
+*.rdb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

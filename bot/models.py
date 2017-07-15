@@ -10,6 +10,7 @@ class Company(models.Model):
     xii = models.CharField(max_length=10, null=True, blank=True)
     cgpa = models.CharField(max_length=10, null=True, blank=True)
     course = models.CharField(max_length=50, null=True, blank=True)
+    departments = models.CharField(max_length=250, null=True, blank=True)
     a_backlog = models.CharField(max_length=10, null=True, blank=True)
     t_backlog = models.CharField(max_length=10, null=True, blank=True)
     ppt_date = models.CharField(max_length=50, null=True, blank=True)
@@ -29,12 +30,17 @@ class Company(models.Model):
         verbose_name = 'Company'
         verbose_name_plural = 'Companies'
 
-class Sucker(models.Model):
+
+class User(models.Model):
     psid = models.CharField(max_length=100, unique=True)
     first_name = models.CharField(max_length=150, null=True, blank=True)
     last_name = models.CharField(max_length=150, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     profile_pic = models.TextField(validators=[URLValidator()], null=True, blank=True)
     gender = models.CharField(max_length=100, null=True, blank=True)
+    course = models.CharField(max_length=50, null=True, blank=True)
+    department = models.CharField(max_length=25, null=True, blank=True)
+    profile_completed = models.BooleanField(default=False)
     valid = models.BooleanField(default=True)
 
     def __str__(self):

@@ -103,10 +103,11 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Nairobi'
 
 #access_token
-AT = os.environ['AT']
+AT = os.environ.get('AT', '')
 
 #verify token
-VT = os.environ['VT']
+VT = os.environ.get('VT', '')
 
-username = os.environ['username']
-password = os.environ['password']
+wit_server_AT = os.environ.get('wit_server_AT', '')
+username = os.environ.get('username', '')
+password = os.environ.get('password', '')

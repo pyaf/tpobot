@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Company, Sucker
+from .models import Company, User
 
 class CompanyAdmin(admin.ModelAdmin):
 
@@ -11,4 +11,4 @@ class CompanyAdmin(admin.ModelAdmin):
 
 admin.site.register(Company, CompanyAdmin)
 
-admin.site.register(Sucker)
+admin.site.register(User)
