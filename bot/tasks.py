@@ -39,79 +39,52 @@ def send_msg(psid, msg):
     status = requests.post(url, headers=headers, data=response_msg)
     logging.info('sent message status: %s', status.content)
 
-def reg_error(psid, user):
-    msg = message_dict['reg_error']
-    send_msg(psid, msg)
-    if user.email is None:
-        msg = message_dict['get_email']
-        send_msg(psid, msg)
-    elif user.course is None:
-        msg = message_dict['get_course']
-        send_msg(psid, msg)
-    return
-
 @shared_task
 def completeProfile(psid, received_msg):
     user = User.objects.get(psid=psid)
     received_msg = received_msg.strip().split(' ')
-    if len(received_msg) != 2:
-        reg_error(psid, user)
+    if len(received_msg) != 1:
+        msg = message_dict['reg_error']
+        send_msg(psid, msg)
         return
 
-    field = received_msg[0].lower() 
-    value = received_msg[1].lower()
+    value = received_msg[0].lower()
 
-    #check for email
-    if field == 'email':
-        if user.email != None:#email already there
-            msg = message_dict['email_already_set'].format(user.email)
-            send_msg(psid, msg)
-            return
-        if '@' not in value or 'itbhu.ac.in' not in value:#will work for iitbhu too.
-            msg = message_dict['invalid_email']
-            send_msg(psid, msg)
-            return
-
-        temp = value.split('@')[0].split('.')[-1]
-        user.department = temp[:3]
-        user.email = value        
-        user.save()
-        msg = message_dict['email_set'].format(value)
-        send_msg(psid, msg)
-        msg = message_dict['get_course']
-        send_msg(psid, msg)
-        if user.course != None:
-            user.profile_completed = True
-            user.save()
-        return
-
-    elif field == 'course':
-        if user.course != None:
-            msg = message_dict['course_already_set'].format(user.course)
-            send_msg(psid, msg)
-            return
-        elif value=='idd' or value=='btech' or value=='imd':
-            user.course = value
-            user.save()
-            msg = message_dict['course_set'].format(value)
-            send_msg(psid, msg)
-            if user.email != None:
-                user.profile_completed = True
-                user.save()
-                msg = message_dict['reg_success']
+    if '@' in value and user.email is None:#it's email and user hasn't set it yet
+        if 'itbhu.ac.in' in value:
+            temp = value.split('@')[0].split('.')[-1]
+            if len(temp) != 5: #like eee15
+                msg = message_dict['invalid_email']
                 send_msg(psid, msg)
-            else:
-                msg = message_dict['get_email']
-                send_msg(psid, msg)
+                return
+            user.department = temp[:3]#eee
+            user.email = value
+            user.save()
+            msg = message_dict['email_set'].format(value)
+            send_msg(psid, msg)
+            msg = message_dict['get_course']
+            send_msg(psid, msg)
             return
         else:
-            msg = message_dict['invalid_course']
+            msg = message_dict['not_iit_email']
             send_msg(psid, msg)
             return
-    else:
-        reg_error(psid, user)
-        return
 
+    elif (value=='idd' or value=='btech' or value=='imd') and \
+                                user.course is None and user.email:
+        #true when email is set, course isn't, you got a valid value
+
+        user.course = value
+        user.profile_completed = True
+        user.save()
+        msg = message_dict['course_set'].format(value)
+        send_msg(psid, msg)
+        msg = message_dict['reg_success']
+        send_msg(psid, msg)
+    else:
+        msg = message_dict['reg_error']
+        send_msg(psid, msg)
+        return
 
 @shared_task
 def newUser(psid):
