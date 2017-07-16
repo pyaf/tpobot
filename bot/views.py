@@ -30,7 +30,6 @@ class BotView(generic.View):
         return generic.View.dispatch(self, request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        print('\nGOT A POST REQUEST!')
         try:
             incoming_message = json.loads(self.request.body.decode('utf-8'))
             for entry in incoming_message['entry']:
@@ -39,17 +38,14 @@ class BotView(generic.View):
                         text =  message['message']['text']
                         psid = message['sender']['id']
                         print(text, psid)
-                        user = User.objects.filter(psid=psid)
-                        if user.exists():
-                            user = user[0]
-                            print('user exists ', user)
-                            print('profile completed ', user.profile_completed)
+                        try:
+                            user = User.objects.get(psid=psid)
                             if user.profile_completed:
                                 analyseMessage.delay(psid, text)
                             else:#get user profile completed
                                 completeProfile.delay(psid, text)
-                        else:
-                            print('\nnew user,, yaaayyye')
+                        except Exception as e:
+                            # print('\nnew user,, yaaayyye')
                             newUser.delay(psid)
         except Exception as e:
             print("Exception: ", e)

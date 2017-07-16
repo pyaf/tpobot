@@ -163,11 +163,13 @@ def informUsersAboutNewCompany(data_dict):
 @shared_task
 def updateUserAboutThisCompany(data_dict, changed_fields):
     company = Company.objects.get(company_name=data_dict['company_name'])
+    
     msg = message_dict['updated_company'].format(data_dict['company_name'])
     for field in changed_fields:
         msg += field_msg_dict[field] + ": " + data_dict[field] + "\n"
-
+    msg += field_msg_dict['updated_at'] +': ' + data_dict['updated_at'] + '\n'
     msg += "\n\nThis is it for now.\nCya :)"
+
     for user in User.objects.filter(subscribed=True):
         if (user.course in company.course) and \
             (user.department in company.department):
@@ -175,7 +177,7 @@ def updateUserAboutThisCompany(data_dict, changed_fields):
 
 
 
-@periodic_task(run_every=(crontab(minute='*/1')), name="crawl_tpo", ignore_result=True)
+@periodic_task(run_every=(crontab(minute='*/10')), name="crawl_tpo", ignore_result=True)
 def crawl_tpo():
     logging.info('Crawling TPO')
     data = spider.crawl()
@@ -190,8 +192,8 @@ def crawl_tpo():
                 changed_fields = company.update(data_dict)
                 logging.info(company_name + str(changed_fields))
                 changed_fields.remove('updated_at')
-                if len(changed_fields):#to be safe/ avoid sending empty msgs
-                    updateUserAboutThisCompany(data_dict, changed_fields)
+                # if len(changed_fields):#to be safe/ avoid sending empty msgs
+                updateUserAboutThisCompany(data_dict, changed_fields)
         except Exception as e:        
             logging.info("Got a new company", e)
             Company.objects.create(**data_dict)

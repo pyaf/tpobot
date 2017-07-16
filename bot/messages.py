@@ -65,7 +65,8 @@ message_dict = {
 
 	'activate': "Welcome back!, your account is reactivated",
 
-	'wit_error': "Ohho, I'm sick, my brain is not working, Please call my master! 😰 ",
+	'wit_error': "Ohho, I'm sick, my brain is not working, Please call my master! 😰 \n"\
+				"https:/m.me/rishabhags/",
 
 	'new_company': "Hola!\nNew Company Open for you! 🎉🎊🎁\n\n"\
 					"Company Name: {0}\n"\
@@ -84,7 +85,7 @@ message_dict = {
 						"{0} got updated on the portal\n\n"\
 						"Updated fields are: \n\n",
 
-	'abuse': "You are so abusive, next time, I'll deactivate your account 😠😠😠",
+	'abuse': "You are so abusive, next time, I'll deactivate your account 😡😠😡",
 
 	'lol': "Lol, I was kidding,,. 😜😝😂",
 
@@ -100,6 +101,7 @@ message_dict = {
 field_msg_dict = {
 
     'company_profile': 'Company Profile',
+    'updated_at': 'Update Status',
     'x': 'X',
     'xii': 'XII',
     'cgpa': 'CGPA',
