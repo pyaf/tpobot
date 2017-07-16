@@ -50,10 +50,10 @@ message_dict = {
 				"What I currently do:\n"
 				"1. I text you whenever a new company opens for your course and department, "\
 				"you'll get all details of such companies. \n\n"\
-				"What it plans to do in pretty soon:"
-				"1. I will also remind you about deadlines of willingness application, ppt dates "\
-				"and exam dates too. B) \n\n\n" \
-
+				"What it plans to do in pretty soon:\n"
+				"1. Set remind you about deadlines of willingness application, ppt dates "\
+				"and exam dates too. B) \n" \
+				"2. Give you info about the companies you ask.\n\n"\
 				"P.S. To know why that nerd made me? you are free to ask me :P",
 
 	'help': "Baba has got you some help:\n\n"\
