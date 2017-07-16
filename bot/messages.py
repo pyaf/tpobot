@@ -65,6 +65,8 @@ message_dict = {
 
 	'activate': "Welcome back!, your account is reactivated",
 
+	'wit_error': "Ohho, I'm sick, my brain is not working, Please call my master! 😰 ",
+
 	'master': "My master made me because TPO developers ko to `सीनेमा` ne barbaad karke rakkha hai.. "\
 				"and he knows very well, that jab tak iss des me `सीनेमा` hai, tab tak log * "\
 				"bante rahege ;P \n\n"\
