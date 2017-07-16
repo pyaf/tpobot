@@ -1,7 +1,7 @@
 # TPO IIT (BHU) Bot
 
 An utterly fantastic facebook messenger bot to give updates of Traning and Placement portal of IIT (BHU).
-The project uses `Scrapy` as web crawler, `Django` as backend framework, `Celery` as asynchronous task manager, `Redis` as message broker for celery and `Ngrok` to setup a secure tunnel to localhost for development purposes and `Wit` as intent parser.
+The project uses python's `requests` module for web crawling, `Django` as backend framework, `Celery` as asynchronous task manager, `Redis` as message broker for celery and `Ngrok` to setup a secure tunnel to localhost for development purposes and `Wit` as intent parser.
 
 ## Installation 
 

@@ -31,7 +31,7 @@ def call_wit(msg):
         resp = client.message(msg)
         return (resp['entities'], True)
     except WitError as e:
-        logging.info('Got WitError %s ' %e)
+        logging.info('Got WitError %s \n' %e)
         return ({'e': e}, False)
 
 
@@ -110,23 +110,21 @@ def newUser(psid):
     send_msg(psid, msg)
 
 
-
-
 @shared_task
 def analyseMessage(psid, message):
     response, status = call_wit(message)
+    logging.info('wit response: %s\n' % dict(response))
     msg_sent_count = 0
-    logging.info('wit response: %s' % dict(response))
     if status:
         for responseType in response:
-            logging.info('responseType '+ str(responseType))
+            logging.info('responseType %s\n' % str(responseType))
             responseClass = WitResponseTypes[responseType]
-            logging.info('Response Class: ' + responseClass.__class__.__name__)
+            logging.info('Response Class: %s\n' % responseClass.__class__.__name__)
             #every responseType has a list of such intent types
             for eachResponse in response[responseType]:
-                logging.info('Checking eachResponse: %s' % eachResponse)
+                logging.info('Checking eachResponse: %s\n' % eachResponse)
                 method = getattr(responseClass, eachResponse['value'])
-                logging.info('Calling method: ' + method.__name__)
+                logging.info('Calling method: %s\n' % method.__name__)
                 msgSent = method(psid, eachResponse['confidence'])
                 msg_sent_count += bool(msgSent)
 
@@ -135,6 +133,7 @@ def analyseMessage(psid, message):
         msgSent = send_msg(psid, msg)
         msg_sent_count += bool(msgSent)        
 
+    logging.info("msg_sent_count: %s\n" % msg_sent_count)
     if msg_sent_count == 0:
         msg = message_dict['no_idea']
         send_msg(psid, msg)

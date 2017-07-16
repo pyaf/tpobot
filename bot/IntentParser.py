@@ -45,7 +45,6 @@ class Intent(object):
             msg = message_dict['haalchaal']
             return send_msg(psid, msg)
         
-
     def update(self, psid, confidence):
         pass
 
@@ -60,17 +59,14 @@ class Intent(object):
             msg = message_dict['help']
             return send_msg(psid, msg)
         
-
     def deactivate(self, psid, confidence):
         if confidence > 0.75:
             toggleUserSubcription(psid, flag=False)
         
-
     def activate(self, psid, confidence):
         if confidence > 0.75:
             toggleUserSubcription(psid, flag=True)
         
-
     def happiness(self, psid, confidence):
         if confidence > 0.60:
             return send_msg(psid, '😁')
@@ -81,8 +77,7 @@ class Greeting(object):
     def true(self, psid, confidence):
         if confidence > 0.80:
             msg = message_dict['greetings']
-            return send_msg(psid, msg)
-        
+            return send_msg(psid, msg)  
 
 class Question(object):
 

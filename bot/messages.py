@@ -21,7 +21,8 @@ message_dict = {
 
     'not_iit_email': "Oops!, seems like you didn't enter your official email id\n"\
     				 "As I am running on a free tier heroku server (which has got limitations) "\
-    				 "I cannot afford offering services to others, Bhawnao ko samjho yaaar 😅",
+    				 "I cannot afford offering services to others,.\nIf you ain't student of IIT (BHU), please"\
+    				 " don't register ,.. Bhawnao ko samjho yaaar 😅",
 
     'get_course': "Baba needs to know your course, select your course among btech, idd or imd, "\
     			   "then drop a text message.",
@@ -41,17 +42,17 @@ message_dict = {
 	'reg_success': "That's it!, you have successfully registered!, your email id "\
 					"will be verified soon. :) \n\nIf found misleading or wrong, I'll find you and I'll "\
 					"deregister you ;P \n\n"\
-					"ask for features to know what I've got for you in my Jhola B) \n\n"\
-					"ask for help to know what you have got to do with me :D",
+					"Ask for features to know what I've got for you in my Jhola B) \n\n"\
+					"Ask for help to know what you've got to do with me :D",
 
 	'features': "Baba is a messenger bot created by a high functioning sociopathic nerd of IIT (BHU) :D\n"\
-				"\nThis bot has got a simple AI brain powered by Wit and has not been trained too much, "\
+				"\nI have got a simple AI brain powered by Wit and has not been trained too much, "\
 				"so please don't use off the track keywords, though a lit bit would work. 😅 \n\n"\
-				"What this bot currently does:"
-				"1. This bot will text you whenever a new company opens for your course and department, "\
+				"What I currently do:\n"
+				"1. I text you whenever a new company opens for your course and department, "\
 				"you'll get all details of such companies. \n\n"\
-				"What is plans to do in pretty soon:"
-				"1.This bot will also remind you about deadlines of willingness application, ppt dates "\
+				"What it plans to do in pretty soon:"
+				"1. I will also remind you about deadlines of willingness application, ppt dates "\
 				"and exam dates too. B) \n\n\n" \
 
 				"P.S. To know why that nerd made me? you are free to ask me :P",
