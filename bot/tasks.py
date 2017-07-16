@@ -49,13 +49,13 @@ def completeProfile(psid, received_msg):
 
     value = received_msg[0].lower()
 
-    if '@' in value and user.email is None:#it's email and user hasn't set it yet
+    if '@' in value and not user.email:#it's email and user hasn't set it yet
         if 'itbhu.ac.in' in value:
             temp = value.split('@')[0].split('.')[-1]
             if len(temp) != 5: #like eee15
                 msg = message_dict['invalid_email']
                 return send_msg(psid, msg)
-                
+            
             user.department = temp[:3]#eee
             user.email = value
             user.save()
@@ -70,7 +70,7 @@ def completeProfile(psid, received_msg):
             
 
     elif (value=='idd' or value=='btech' or value=='imd') and \
-                                user.course is None and user.email:
+                                not user.course and user.email:
         #true when email is set, course isn't, you got a valid value
 
         user.course = value
@@ -163,7 +163,7 @@ def informUsersAboutNewCompany(data_dict):
 @shared_task
 def updateUserAboutThisCompany(data_dict, changed_fields):
     company = Company.objects.get(company_name=data_dict['company_name'])
-    
+
     msg = message_dict['updated_company'].format(data_dict['company_name'])
     for field in changed_fields:
         msg += field_msg_dict[field] + ": " + data_dict[field] + "\n"
