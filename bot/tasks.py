@@ -9,15 +9,15 @@ from wit.wit import WitError
 from collections import defaultdict
 
 from tpobot.settings import AT, wit_server_AT
-from bot.models import User
+from bot.models import User, Company
 from bot.messages import *
-from bot.IntentParser import *
+from bot.intentParser import *
 
 logger = get_task_logger(__name__)
 
 client = Wit(access_token=wit_server_AT)
 
-WitResponseTypes = {
+entityTypes = {
 
     'intent': Intent(),
     'greetings': Greeting(),
@@ -116,16 +116,17 @@ def analyseMessage(psid, message):
     logging.info('wit response: %s\n' % dict(response))
     msg_sent_count = 0
     if status:
-        for responseType in response:
+        #entity like `intent`, `greetings`, `question` etc
+        for entity in response:
             logging.info('responseType %s\n' % str(responseType))
-            responseClass = WitResponseTypes[responseType]
-            logging.info('Response Class: %s\n' % responseClass.__class__.__name__)
-            #every responseType has a list of such intent types
-            for eachResponse in response[responseType]:
-                logging.info('Checking eachResponse: %s\n' % eachResponse)
-                method = getattr(responseClass, eachResponse['value'])
+            entityClass = entityTypes[responseType]
+            logging.info('Enitity Class: %s\n' % entityClass.__class__.__name__)
+            #every entity has a list of entity types like my `intent` has `happiness` 
+            for entityType in response[entity]:
+                logging.info('Checking entityType: %s\n' % entityType)
+                method = getattr(entityClass, entityType['value'])
                 logging.info('Calling method: %s\n' % method.__name__)
-                msgSent = method(psid, eachResponse['confidence'])
+                msgSent = method(psid, entityType['confidence'])
                 msg_sent_count += bool(msgSent)
 
     else:#WitError
@@ -139,6 +140,34 @@ def analyseMessage(psid, message):
         send_msg(psid, msg)
 
 
+@shared_task
+def informUsersAboutNewCompany(company_name):
+    company = Company.objects.get(company_name=company_name)
+    msg = message_dict['new_company'].format(
+                    company.company_name,
+                    company.course,
+                    company.department,
+                    company.btech_ctc,
+                    company.idd_imd_ctc,
+                    company.x,
+                    company.xii,
+                    company.cgpa,
+                    company.status,
+                )
+    for user in User.objects.all():
+        if (user.course in company.course) and \
+                (user.department in company.department):
+                send_msg(user.psid, msg)
+    
+@shared_task
+def updateUserAboutThisCompany(company_name, data_dict, changed_fields):
+    company = Company.objects.get(company_name=company_name)
+    msg = message_dict['updated_company'].format(company_name)
+    for field in changed_fields:
+        msg += field + ": " + data_dict[field] + "\n"
 
-        
-
+    msg += "\n\nThis is it for now.\nCya :)"
+    for user in User.objects.filter(subscribed=True):
+        if (user.course in company.course) and \
+            (user.department in company.department):
+            send_msg(user.psid, msg)

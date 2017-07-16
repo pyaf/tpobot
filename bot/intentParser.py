@@ -38,6 +38,9 @@ def toggleUserSubcription(psid, flag=False):
         msg = 'Your account is already so. 😪'
         return send_msg(psid, msg)
 
+'''
+My wit uses three entities namely intent, greetings and question
+''' 
 
 class Intent(object):
     def haalchaal(self, psid, confidence):
@@ -69,9 +72,15 @@ class Intent(object):
         
     def happiness(self, psid, confidence):
         if confidence > 0.60:
-            return send_msg(psid, '😁')
+            msg = random.choice(['😁','😃','😄','😉','😊','😎','😘','🙂'])
+            return send_msg(psid, msg)
         
+    def abuse(self, psid, confidence):
+        if confidence > 0.80:
+            msg = message_dict['abuse']
+            return send_msg(psid, msg)
 
+            
 class Greeting(object):
 
     def true(self, psid, confidence):

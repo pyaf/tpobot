@@ -12,7 +12,7 @@ message_dict = {
 
     'no_idea':  "Oops, didn't get you, Baba is a simple AI bot not Jarvis, don't be so cryptic. 😅\n"\
     			"Baba has gotta master, Baba will learn this soon. B) \n\n"\
-    			"type 'features' to know the options..",
+    			"type 'help' to know what can you do..",
 
     'get_email': "Baba needs to know your official IIT email id, drop it as a text message.",
 
@@ -28,7 +28,6 @@ message_dict = {
     			   "then drop a text message.",
 
  	'course_set': "Baba has set your course to {0}",
-
 
     'reg_error': "Oops!, you got me wrong, retry entering it correctly..\n\n"\
     			 "if you're facing issues contact https://m.me/rishabh.ags",
@@ -57,7 +56,7 @@ message_dict = {
 
 				"P.S. To know why that nerd made me? you are free to ask me :P",
 
-	'help': "Baba has got you some help:\n"\
+	'help': "Baba has got you some help:\n\n"\
 			"1. You can ask me to unsubscribe you from from receiving messeges .\n"\
 			"2. You can ask me subscribe your account.\n",
 
@@ -67,6 +66,27 @@ message_dict = {
 	'activate': "Welcome back!, your account is reactivated",
 
 	'wit_error': "Ohho, I'm sick, my brain is not working, Please call my master! 😰 ",
+
+	'new_company': "Hola!\nNew Company Open for you! 🎉🎊🎁\n\n"\
+					"Company Name: {0}\n"\
+					"Open for: {1}\n"\
+					"Departments: {2}\n"\
+					"BTech CTC: {3}\n"\
+					"IDD/IMD CTC: {4}\n"\
+					"X cutoff: {5}\n"\
+					"XII cutoff: {6}\n"\
+					"CGPA cutoff: {7}\n"\
+					"Status: {8}\n\n"\
+					"Rest info hasn't been up on TPO portal, will updating you soon.\n"\
+					"Cya :)",
+
+	'updated_company': "Baba has updates to deliver!\n\n"\
+						"{0} got updated on the portal\n\n"\
+						"Updated fields are: \n\n",
+
+	'abuse': "You are so abusive, next time, I'll deactivate your account 😠😠😠",
+
+	'lol': "Lol, I was kidding,,. ",
 
 	'master': "My master made me because TPO developers ko to `सीनेमा` ne barbaad karke rakkha hai.. "\
 				"and he knows very well, that jab tak iss des me `सीनेमा` hai, tab tak log * "\
@@ -81,3 +101,5 @@ message_dict = {
 # "So, hum denge aapko sare updates, about new companies listed in the portal,willingness opening "\
 # "and closing reminders ppt reminders, exam date reminders aur bhi bahot kuchh..\n"\
 # 'invalid_course': "Baba wants valid course name (btech or idd or imd).\n retry please.",
+# "Active backlogs allowed: {8}\n"\
+# "Total backlogs allowed: {9}\n"\
