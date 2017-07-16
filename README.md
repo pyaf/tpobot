@@ -8,7 +8,7 @@ The project uses python's `requests` module for web crawling, `Django` as backen
 * Install required dependencies `pip install -r requirements.txt`
 * Make sure `redis` is >= 2.10.5, if not, run `pip install celery[redis]`
 * Migrate db `python manage.py migrate`
-* Crawl TPO portal and store/update Companies' Data in db by `python spider.py`
+* Crawl TPO portal and store/update Companies' Data in db by `python bot/spider.py`
 * Start Dev server with `python manage.py runserver`
 * Use ngrok with `./ngrok http 8000`
 * Start redis-server with `redis-server`

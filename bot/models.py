@@ -59,6 +59,7 @@ class User(models.Model):
     def __str__(self):
         return "%s %s" %(self.first_name, self.last_name)
 
+
 '''
 The exception is CharFields and TextFields, which in Django are never saved as
  NULL. Blank values are stored in the DB as an empty string ('').

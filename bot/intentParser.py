@@ -4,6 +4,7 @@ import requests
 from tpobot.settings import AT
 from bot.messages import message_dict
 from bot.models import User
+import random
 
 def send_msg(psid, msg):
     logging.info('sending msg %s' %msg)
@@ -78,9 +79,10 @@ class Intent(object):
     def abuse(self, psid, confidence):
         if confidence > 0.80:
             msg = message_dict['abuse']
-            return send_msg(psid, msg)
+            send_msg(psid, msg)
+            return send_msg(psid, message_dict['lol'])
 
-            
+
 class Greeting(object):
 
     def true(self, psid, confidence):

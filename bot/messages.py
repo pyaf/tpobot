@@ -86,7 +86,7 @@ message_dict = {
 
 	'abuse': "You are so abusive, next time, I'll deactivate your account 😠😠😠",
 
-	'lol': "Lol, I was kidding,,. ",
+	'lol': "Lol, I was kidding,,. 😜😝😂",
 
 	'master': "My master made me because TPO developers ko to `सीनेमा` ne barbaad karke rakkha hai.. "\
 				"and he knows very well, that jab tak iss des me `सीनेमा` hai, tab tak log * "\
@@ -96,6 +96,26 @@ message_dict = {
 				"This bot is just for fun (really?)"
 
 } 
+
+field_msg_dict = {
+
+    'company_profile': 'Company Profile',
+    'x': 'X',
+    'xii': 'XII',
+    'cgpa': 'CGPA',
+    'course': 'Course',
+    'department': 'Department',
+    'a_backlog': 'Active backlogs allowed',
+    't_backlog': 'Total backlogs allowed',
+    'ppt_date': 'PPT date',
+    'exam_date': 'Exam date',
+    'status': 'Status',
+    'branch_issue_dead': 'Branch issue deadline',
+    'willingness_dead': 'Willingness deadline',
+    'btech_ctc': 'B.Tech CTC',
+    'idd_imd_ctc':'IDD/IMD CTC',
+    'jd': 'JD',
+}
 
 # "TPO developers ko to `सीनेमा` ne barbaad karke rakkha hai.. ;P\n"
 # "So, hum denge aapko sare updates, about new companies listed in the portal,willingness opening "\

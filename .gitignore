@@ -6,6 +6,11 @@ staticfiles
 help.txt
 db.sqlite3
 *.rdb
+*.dat
+*.bat
+*.dir
+*.pid
+*.bak
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

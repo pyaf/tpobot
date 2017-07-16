@@ -1,6 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 from celery.utils.log import get_task_logger
 from celery import shared_task
+from celery.task.schedules import crontab
+from celery.decorators import periodic_task
 import requests
 import logging
 import json
@@ -12,6 +14,7 @@ from tpobot.settings import AT, wit_server_AT
 from bot.models import User, Company
 from bot.messages import *
 from bot.intentParser import *
+from bot import spider
 
 logger = get_task_logger(__name__)
 
@@ -33,7 +36,6 @@ def call_wit(msg):
     except WitError as e:
         logging.info('Got WitError %s \n' %e)
         return ({'e': e}, False)
-
 
 
 @shared_task
@@ -81,8 +83,8 @@ def completeProfile(psid, received_msg):
     else:
         msg = message_dict['reg_error']
         return send_msg(psid, msg)
-        
 
+        
 #will use graph API to save few user fields, rest to be asked in complete profile function
 @shared_task
 def newUser(psid):
@@ -118,8 +120,8 @@ def analyseMessage(psid, message):
     if status:
         #entity like `intent`, `greetings`, `question` etc
         for entity in response:
-            logging.info('responseType %s\n' % str(responseType))
-            entityClass = entityTypes[responseType]
+            logging.info('Entity %s\n' % str(entity))
+            entityClass = entityTypes[entity]
             logging.info('Enitity Class: %s\n' % entityClass.__class__.__name__)
             #every entity has a list of entity types like my `intent` has `happiness` 
             for entityType in response[entity]:
@@ -141,33 +143,57 @@ def analyseMessage(psid, message):
 
 
 @shared_task
-def informUsersAboutNewCompany(company_name):
-    company = Company.objects.get(company_name=company_name)
+def informUsersAboutNewCompany(data_dict):
     msg = message_dict['new_company'].format(
-                    company.company_name,
-                    company.course,
-                    company.department,
-                    company.btech_ctc,
-                    company.idd_imd_ctc,
-                    company.x,
-                    company.xii,
-                    company.cgpa,
-                    company.status,
+                    data_dict['company_name'],
+                    data_dict['course'],
+                    data_dict['department'],
+                    data_dict['btech_ctc'],
+                    data_dict['idd_imd_ctc'],
+                    data_dict['x'],
+                    data_dict['xii'],
+                    data_dict['cgpa'],
+                    data_dict['status'],
                 )
     for user in User.objects.all():
-        if (user.course in company.course) and \
-                (user.department in company.department):
+        if (user.course in data_dict['course']) and \
+                (user.department in data_dict['department']):
                 send_msg(user.psid, msg)
     
 @shared_task
-def updateUserAboutThisCompany(company_name, data_dict, changed_fields):
-    company = Company.objects.get(company_name=company_name)
-    msg = message_dict['updated_company'].format(company_name)
+def updateUserAboutThisCompany(data_dict, changed_fields):
+    company = Company.objects.get(company_name=data_dict['company_name'])
+    msg = message_dict['updated_company'].format(data_dict['company_name'])
     for field in changed_fields:
-        msg += field + ": " + data_dict[field] + "\n"
+        msg += field_msg_dict[field] + ": " + data_dict[field] + "\n"
 
     msg += "\n\nThis is it for now.\nCya :)"
     for user in User.objects.filter(subscribed=True):
         if (user.course in company.course) and \
             (user.department in company.department):
             send_msg(user.psid, msg)
+
+
+
+@periodic_task(run_every=(crontab(minute='*/1')), name="crawl_tpo", ignore_result=True)
+def crawl_tpo():
+    logging.info('Crawling TPO')
+    data = spider.crawl()
+    logging.info('Crawling Done')
+    for index in data:
+        data_dict = data[index]
+        try:
+            company = Company.objects.get(company_name=data_dict['company_name'])
+            #company already there in db
+            if data_dict['updated_at'] != company.updated_at:
+                #company updated on TPO portal
+                changed_fields = company.update(data_dict)
+                logging.info(company_name + str(changed_fields))
+                changed_fields.remove('updated_at')
+                if len(changed_fields):#to be safe/ avoid sending empty msgs
+                    updateUserAboutThisCompany(data_dict, changed_fields)
+        except Exception as e:        
+            logging.info("Got a new company", e)
+            Company.objects.create(**data_dict)
+            informUsersAboutNewCompany(data_dict)
+
