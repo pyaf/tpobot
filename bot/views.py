@@ -12,7 +12,6 @@ from bot.models import *
 from bot.messages import *
 from bot.tasks import *
 
-
 class IndexView(generic.View):
     def get(self, request, *args, **kwargs):
         return HttpResponse("lol, don't do this!")
@@ -40,10 +39,13 @@ class BotView(generic.View):
                         print(text, psid)
                         try:
                             user = User.objects.get(psid=psid)
-                            if user.profile_completed:
-                                analyseMessage.delay(psid, text)
-                            else:#get user profile completed
-                                completeProfile.delay(psid, text)
+                            if user.valid:
+                                if user.profile_completed:
+                                    analyseMessage.delay(psid, text)
+                                else:#get user profile completed
+                                    completeProfile.delay(psid, text)
+                            else:
+                                gotInactiveUser.delay(psid)
                         except Exception as e:
                             # print('\nnew user,, yaaayyye')
                             newUser.delay(psid)

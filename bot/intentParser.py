@@ -68,11 +68,11 @@ class Intent(object):
         
     def deactivate(self, psid, confidence):
         if confidence > 0.75:
-            toggleUserSubcription(psid, flag=False)
+            return toggleUserSubcription(psid, flag=False)
         
     def activate(self, psid, confidence):
         if confidence > 0.75:
-            toggleUserSubcription(psid, flag=True)
+            return toggleUserSubcription(psid, flag=True)
         
     def happiness(self, psid, confidence):
         if confidence > 0.60:

@@ -32,12 +32,12 @@ entityTypes = {
 }
 #get the intent
 def call_wit(msg):
-    logging.info('\ncalling wit for %s' %msg)
+    # logging.info('\ncalling wit for %s' %msg)
     try:
         resp = client.message(msg)
         return (resp['entities'], True)
     except WitError as e:
-        logging.info('Got WitError %s \n' %e)
+        # logging.info('Got WitError %s \n' %e)
         return ({'e': e}, False)
 
 
@@ -118,19 +118,19 @@ def newUser(psid):
 @shared_task
 def analyseMessage(psid, message):
     response, status = call_wit(message)
-    logging.info('wit response: %s\n' % dict(response))
+    # logging.info('wit response: %s\n' % dict(response))
     msg_sent_count = 0
     if status:
         #entity like `intent`, `greetings`, `question` etc
         for entity in response:
-            logging.info('Entity %s\n' % str(entity))
+            # logging.info('Entity %s\n' % str(entity))
             entityClass = entityTypes[entity]
-            logging.info('Enitity Class: %s\n' % entityClass.__class__.__name__)
+            # logging.info('Enitity Class: %s\n' % entityClass.__class__.__name__)
             #every entity has a list of entity types like my `intent` has `happiness` 
             for entityType in response[entity]:
-                logging.info('Checking entityType: %s\n' % entityType)
+                # logging.info('Checking entityType: %s\n' % entityType)
                 method = getattr(entityClass, entityType['value'])
-                logging.info('Calling method: %s\n' % method.__name__)
+                # logging.info('Calling method: %s\n' % method.__name__)
                 msgSent = method(psid, entityType['confidence'])
                 msg_sent_count += bool(msgSent)
 
@@ -179,7 +179,10 @@ def updateUserAboutThisCompany(data_dict, changed_fields):
             (user.department in company.department):
             send_msg(user.psid, msg)
 
-
+@shared_task
+def gotInactiveUser(psid):
+    msg = message_dict['user_invalid']
+    send_msg(psid, msg)
 
 @periodic_task(run_every=(crontab(minute='*/10')), name="crawl_tpo", ignore_result=True)
 def crawl_tpo():

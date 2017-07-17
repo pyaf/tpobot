@@ -12,7 +12,10 @@ message_dict = {
 
     'no_idea':  "Oops, didn't get you, Baba is a simple AI bot not Jarvis, don't be so cryptic. 😅\n"\
     			"Baba has gotta master, Baba will learn this soon. B) \n\n"\
-    			"type 'help' to know what can you do..",
+    			"Ask for help to know what options you have.",
+
+    'user_invalid': "You account is Invalid.\n"\
+    				"Contact https://m.me/rishabh.ags/ for help",
 
     'get_email': "Baba needs to know your official IIT email id, drop it as a text message.",
 
@@ -43,7 +46,7 @@ message_dict = {
 					"will be verified soon. :) \n\nIf found misleading or wrong, I'll find you and I'll "\
 					"deregister you ;P \n\n"\
 					"Ask for features to know what I've got for you in my Jhola B) \n\n"\
-					"Ask for help to know what you've got to do with me :D",
+					"Ask for help to know what options you have. :)",
 
 	'features': "Baba is a messenger bot created by a high functioning sociopathic nerd of IIT (BHU) :D\n"\
 				"\nI have got a simple AI brain powered by Wit and has not been trained too much, "\
@@ -59,11 +62,12 @@ message_dict = {
 				"1. Remind you about deadlines of willingness application, ppt dates "\
 				"and exam dates etc.. B) \n" \
 				"2. Give replies to your queries about companies...\n\n"\
-				"P.S. To know why that nerd made me? you are free to ask me :P",
+				"P.S. To know why that nerd made me? you are free to ask me :P\n"\
+				"Ask for help to know what options you have.",
 
 	'help': "Baba has got you some help:\n\n"\
-			"1. You can ask me to unsubscribe you from from receiving messeges .\n"\
-			"2. You can ask me subscribe your account.\n",
+			"1. You can ask me to unsubscribe/deactivate you from receiving updates .\n"\
+			"2. You can ask me subscribe/activate your account. from receiveing updates.\n",
 			
 
 	'deactivate': "Alright pal, It's been a good chat with you, deactivating your account.\n"\
