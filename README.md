@@ -2,7 +2,7 @@
 
 An utterly fantastic facebook messenger bot to give updates of Traning and Placement portal of IIT (BHU).
 
-The bot uses `Django` as backend framework for webhook, `Celery` as asynchronous task manager, `Redis` as message broker, `Wit` as intent parser, `sqlite3` as database, python's `requests` module for web crawling and `Ngrok` to setup a secure tunnel to localhost for development purposes.
+The bot uses `Django` as backend framework for webhook, `Celery` as asynchronous task manager, `Redis` as message broker, `Wit` as intent parser, `sqlite3` as database for development on local machine and `postgres` for production on heroku, python's `requests` module for web crawling and `Ngrok` to setup a secure tunnel to localhost for development purposes.
 
 ## Installation 
 
