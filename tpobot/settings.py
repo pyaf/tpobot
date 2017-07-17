@@ -40,7 +40,7 @@ ROOT_URLCONF = 'tpobot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'tpobot/template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

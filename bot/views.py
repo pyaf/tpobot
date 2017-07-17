@@ -13,8 +13,10 @@ from bot.messages import *
 from bot.tasks import *
 
 class IndexView(generic.View):
+    template_name = 'privacy.html'
     def get(self, request, *args, **kwargs):
-        return HttpResponse("lol, don't do this!")
+        return render(self.request, self.template_name, {})
+
 
 
 class BotView(generic.View):

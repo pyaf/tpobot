@@ -67,7 +67,7 @@ message_dict = {
 
     'help': "Baba has got you some help:\n\n"\
     "1. You can ask me to unsubscribe/deactivate you from receiving updates .\n"\
-    "2. You can ask me subscribe/activate your account. from receiveing updates.\n",
+    "2. You can ask me subscribe/activate your account. from receiving updates.\n",
 
 
     'deactivate': "Alright pal, It's been a good chat with you, deactivating your account.\n"\
