@@ -91,8 +91,6 @@ message_dict = {
 					"Will keep you updated with this company :D.\n"\
 					"Cya :)",
 
-	'first_update':
-
 	'updated_company': "Baba has updates to deliver!\n\n"\
 						"{0} got updated on the portal\n\n"\
 						"Updated fields are: \n\n",

@@ -23,8 +23,8 @@ class Company(models.Model):
     btech_ctc = models.CharField(max_length=100, null=True, blank=True)
     idd_imd_ctc = models.CharField(max_length=100, null=True, blank=True)
     jd = models.TextField(validators=[URLValidator()], null=True, blank=True)
-    # created_date = models.DateTimeField(auto_now_add=True)
-    # modified_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "%s" %(self.company_name)
