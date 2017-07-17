@@ -36,77 +36,77 @@ message_dict = {
     			 "And you gotta register first, we'll chat afterwards. :)\n"\
     			 "if you're facing issues contact https://m.me/rishabh.ags",
 
-	'email_already_set': "Pal, you already got your email set to {0}",
+    'email_already_set': "Pal, you already got your email set to {0}",
 
-	'invalid_email': "Baba wants a valid email id.\nRetry please.",
+    'invalid_email': "Baba wants a valid email id.\nRetry please.",
 
-	'course_already_set': "Pal, you already got your email set to {0}",
+    'course_already_set': "Pal, you already got your email set to {0}",
 
-	'reg_success': "That's it!, you have successfully registered!, your email id "\
-					"will be verified soon. :) \n\nIf found misleading or wrong, I'll find you and I'll "\
-					"deregister you ;P \n\n"\
-					"Ask for features to know what I've got for you in my Jhola B) \n\n"\
-					"Ask for help to know what options you have. :)",
+    'reg_success': "That's it!, you have successfully registered!, your email id "\
+    "will be verified soon. :) \n\nIf found misleading or wrong, I'll find you and I'll "\
+    "deregister you ;P \n\n"\
+    "Ask for features to know what I've got for you in my Jhola B) \n\n"\
+    "Ask for help to know what options you have. :)",
 
-	'features': "Baba is a messenger bot created by a high functioning sociopathic nerd of IIT (BHU) :D\n"\
-				"\nI have got a simple AI brain powered by Wit and has not been trained too much, "\
-				"so please don't use too off the track keywords 😅 \n\n",
+    'features': "Baba is a messenger bot created by a high functioning sociopathic nerd of IIT (BHU) :D\n"\
+    "\nI have got a simple AI brain powered by Wit and has not been trained too much, "\
+    "so please don't use too off the track keywords 😅 \n\n",
 
-	'features1': "What I currently do:\n"\
-				"1. Text you whenever a new company opens for your course and department, "\
-				"you'll get all details of such companies.\n"\
-				"2. Text you whenever companies your course and department get any changes in their "\
-				"parameters like willingness deadlines, exam dates, ppt dates, etc.. \n\n",
-				
-	'features2':"What I plan to do pretty soon:\n"\
-				"1. Remind you about deadlines of willingness application, ppt dates "\
-				"and exam dates etc.. B) \n" \
-				"2. Give replies to your queries about companies...\n\n"\
-				"P.S. To know why that nerd made me? you are free to ask me :P\n"\
-				"Ask for help to know what options you have.",
+    'features1': "What I currently do:\n"\
+    "1. Text you whenever a new company opens for your course and department, "\
+    "you'll get all details of such companies.\n"\
+    "2. Text you whenever companies your course and department get any changes in their "\
+    "parameters like willingness deadlines, exam dates, ppt dates, etc.. \n\n",
 
-	'help': "Baba has got you some help:\n\n"\
-			"1. You can ask me to unsubscribe/deactivate you from receiving updates .\n"\
-			"2. You can ask me subscribe/activate your account. from receiveing updates.\n",
-			
+    'features2':"What I plan to do pretty soon:\n"\
+    "1. Remind you about deadlines of willingness application, ppt dates "\
+    "and exam dates etc.. B) \n" \
+    "2. Give replies to your queries about companies...\n\n"\
+    "P.S. To know why that nerd made me? you are free to ask me :P\n"\
+    "Ask for help to know what options you have.",
 
-	'deactivate': "Alright pal, It's been a good chat with you, deactivating your account.\n"\
-					"You can ask me to reactivate it if necessary.",
+    'help': "Baba has got you some help:\n\n"\
+    "1. You can ask me to unsubscribe/deactivate you from receiving updates .\n"\
+    "2. You can ask me subscribe/activate your account. from receiveing updates.\n",
 
-	'activate': "Welcome back!, your account is reactivated",
 
-	'wit_error': "Ohho, I'm sick, my brain is not working, Please call my master! 😰 \n"\
-				"https:/m.me/rishabhags/",
+    'deactivate': "Alright pal, It's been a good chat with you, deactivating your account.\n"\
+    "You can ask me to reactivate it if necessary.",
 
-	'new_company': "Hola!\nNew Company Open for you! 🎉🎊🎁\n\n"\
-					"Company Name: {0}\n"\
-					"Open for: {1}\n"\
-					"Departments: {2}\n"\
-					"BTech CTC: {3}\n"\
-					"IDD/IMD CTC: {4}\n"\
-					"X cutoff: {5}\n"\
-					"XII cutoff: {6}\n"\
-					"CGPA cutoff: {7}\n"\
-					"Status: {8}\n\n"\
-					"Will keep you updated with this company :D.\n"\
-					"Cya :)",
+    'activate': "Welcome back!, your account is reactivated",
 
-	'updated_company': "Baba has updates to deliver!\n\n"\
-						"{0} got updated on the portal\n\n"\
-						"Updated fields are: \n\n",
+    'wit_error': "Ohho, I'm sick, my brain is not working, Please call my master! 😰 \n"\
+    "https:/m.me/rishabhags/",
 
-	'abuse': "You are so abusive, next time, I'll deactivate your account 😡😠😡",
+    'new_company': "Hola!\nNew Company Open for you! 🎉🎊🎁\n\n"\
+    "Company Name: {0}\n"\
+    "Open for: {1}\n"\
+    "Departments: {2}\n"\
+    "BTech CTC: {3}\n"\
+    "IDD/IMD CTC: {4}\n"\
+    "X cutoff: {5}\n"\
+    "XII cutoff: {6}\n"\
+    "CGPA cutoff: {7}\n"\
+    "Status: {8}\n\n"\
+    "Will keep you updated with this company :D.\n"\
+    "Cya :)",
 
-	'lol': "Lol, I was kidding,,. 😜😝😂",
+    'updated_company': "Baba has updates to deliver!\n\n"\
+    "{0} got updated on the portal\n\n"\
+    "Updated fields are: \n\n",
 
-	'master': "My master made me because TPO developers ko to `सीनेमा` ne barbaad karke rakkha hai.. "\
-				"and he knows very well, that jab tak iss des me `सीनेमा` hai, tab tak log * "\
-				"bante rahege ;P \n\n"\
-				"P.S. This was a joke, it has nothing to do with anything, we respect TPO portal "\
-				"developers they have made a great portal. \n"\
-				"Ask for me for help, if you wanna know what you have got to do.",
+    'abuse': "You are so abusive, next time, I'll deactivate your account 😡😠😡",
 
-} 
+    'lol': "Lol, I was kidding,,. 😜😝😂",
+
+    'master': "My master made me because TPO developers ko to `सीनेमा` ne barbaad karke rakkha hai.. "\
+    "and he knows very well, that jab tak iss des me `सीनेमा` hai, tab tak log * "\
+    "bante rahege ;P \n\n"\
+    "P.S. This was a joke, it has nothing to do with anything, we respect TPO portal "\
+    "developers they have made a great portal. \n"\
+    "Ask for me for help, if you wanna know what you have got to do.",
+
+}
 
 field_msg_dict = {
 

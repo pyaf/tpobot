@@ -19,7 +19,7 @@ def send_msg(psid, msg):
     headers = {'Content-Type': 'application/json'}
     try:
         status = requests.post(url, headers=headers, data=response_msg)
-        logging.info('Sent message status: %s', status.content)
+        # logging.info('Sent message status: %s', status.content)
         return True
     except Exception as e:
         logging.info("Got an Exception while sending message: %s" %e)
@@ -41,14 +41,14 @@ def toggleUserSubcription(psid, flag=False):
 
 '''
 My wit uses three entities namely intent, greetings and question
-''' 
+'''
 
 class Intent(object):
     def haalchaal(self, psid, confidence):
         if confidence > 0.80:
             msg = message_dict['haalchaal']
             return send_msg(psid, msg)
-        
+
     def update(self, psid, confidence):
         pass
 
@@ -65,20 +65,20 @@ class Intent(object):
         if confidence > 0.80:
             msg = message_dict['help']
             return send_msg(psid, msg)
-        
+
     def deactivate(self, psid, confidence):
         if confidence > 0.75:
             return toggleUserSubcription(psid, flag=False)
-        
+
     def activate(self, psid, confidence):
         if confidence > 0.75:
             return toggleUserSubcription(psid, flag=True)
-        
+
     def happiness(self, psid, confidence):
         if confidence > 0.60:
             msg = random.choice(['😁','😃','😄','😉','😊','😎','😘','🙂'])
             return send_msg(psid, msg)
-        
+
     def abuse(self, psid, confidence):
         if confidence > 0.80:
             msg = message_dict['abuse']
@@ -87,27 +87,14 @@ class Intent(object):
 
     def company(self, psid, confidence):
         if confidence > 0.90:
-            user = User.objects.get(psid=psid)
-
-            for company in Company.objects.filter(course__contains=user.course,
-                                     department__contains=user.department):
-                msg = 'Companies opened so far for you :\n\n'
-                send_msg(psid, msg)
-                c = company.__dict__
-                msg = c['company_name']
-                for field in field_msg_dict:
-                    msg += field_msg_dict[field] + ': ' + c[field] + '\n'
-                send_msg(psid, msg)
-
-            msg = "That's it for now, will keep updating you :)"
-            return send_msg(psid, msg)
+            pass
 
 class Greeting(object):
 
     def true(self, psid, confidence):
         if confidence > 0.80:
             msg = message_dict['greetings']
-            return send_msg(psid, msg)  
+            return send_msg(psid, msg)
 
 class Question(object):
 
@@ -115,5 +102,3 @@ class Question(object):
         if confidence>0.90:
             msg = message_dict['master']
             return send_msg(psid, msg)
-        
-

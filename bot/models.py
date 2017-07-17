@@ -31,20 +31,20 @@ class Company(models.Model):
 
 
 
-    def get(self, field):
+    def get_value(self, field):
         value = self.__dict__.get(field)
         return '' if value is None else value
 
     def update(self, data_dict):
         changed_fields = []
         for field in data_dict:
-            if self.get(field) != data_dict[field]:
+            if self.get_value(field) != data_dict[field]:
                 setattr(self, field, data_dict[field])
                 changed_fields.append(field)
         self.save()
         return changed_fields
 
-            
+
     class Meta:
         verbose_name = 'Company'
         verbose_name_plural = 'Companies'

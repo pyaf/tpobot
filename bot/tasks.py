@@ -40,6 +40,25 @@ def call_wit(msg):
         # logging.info('Got WitError %s \n' %e)
         return ({'e': e}, False)
 
+def updateNewUser(psid):
+    print('INSIDE UPDATEUSER')
+    user = User.objects.get(psid=psid)
+    logging.info('Gotta update new user %s ', user)
+    msg = 'Companies opened for you so far:\n\n'
+    send_msg(psid, msg)
+    for company in Company.objects.filter(course__contains=user.course,
+                             department__contains=user.department):
+        # print(company)
+        c = company.__dict__
+        msg = c['company_name']
+        for field in field_msg_dict:
+            if c[field]:#if not none
+                msg += field_msg_dict[field] + ': ' + c[field] + '\n'
+        logging.info(msg)
+        send_msg(psid, msg)
+
+    msg = "That's it for now, will keep updating you :)"
+    return send_msg(psid, msg)
 
 @shared_task
 def completeProfile(psid, received_msg):
@@ -48,7 +67,7 @@ def completeProfile(psid, received_msg):
     if len(received_msg) != 1:
         msg = message_dict['reg_error']
         return send_msg(psid, msg)
-        
+
 
     value = received_msg[0].lower()
 
@@ -58,7 +77,7 @@ def completeProfile(psid, received_msg):
             if len(temp) != 5: #like eee15
                 msg = message_dict['invalid_email']
                 return send_msg(psid, msg)
-            
+
             user.department = temp[:3]#eee
             user.email = value
             user.save()
@@ -66,11 +85,11 @@ def completeProfile(psid, received_msg):
             send_msg(psid, msg)
             msg = message_dict['get_course']
             return send_msg(psid, msg)
-            
+
         else:
             msg = message_dict['not_iit_email']
             return send_msg(psid, msg)
-            
+
 
     elif (value=='idd' or value=='btech' or value=='imd') and \
                                 not user.course and user.email:
@@ -83,11 +102,13 @@ def completeProfile(psid, received_msg):
         send_msg(psid, msg)
         msg = message_dict['reg_success']
         send_msg(psid, msg)
+        return updateNewUser(psid)
+
     else:
         msg = message_dict['reg_error']
         return send_msg(psid, msg)
 
-        
+
 #will use graph API to save few user fields, rest to be asked in complete profile function
 @shared_task
 def newUser(psid):
@@ -103,10 +124,10 @@ def newUser(psid):
     profile_pic = data['profile_pic']
     gender = data['gender']
     logging.info('New User %s %s' %(first_name, last_name))
-    user = User.objects.create(psid=psid, 
-                                    first_name = first_name, 
-                                    last_name = last_name, 
-                                    gender = gender, 
+    user = User.objects.create(psid=psid,
+                                    first_name = first_name,
+                                    last_name = last_name,
+                                    gender = gender,
                                     profile_pic = profile_pic)
 
     msg = message_dict['welcome']
@@ -118,26 +139,26 @@ def newUser(psid):
 @shared_task
 def analyseMessage(psid, message):
     response, status = call_wit(message)
-    # logging.info('wit response: %s\n' % dict(response))
+    logging.info('wit response status %s, %s\n' %(status, dict(response)))
     msg_sent_count = 0
     if status:
         #entity like `intent`, `greetings`, `question` etc
         for entity in response:
-            # logging.info('Entity %s\n' % str(entity))
+            logging.info('Entity %s\n' % str(entity))
             entityClass = entityTypes[entity]
-            # logging.info('Enitity Class: %s\n' % entityClass.__class__.__name__)
-            #every entity has a list of entity types like my `intent` has `happiness` 
+            logging.info('Enitity Class: %s\n' % entityClass.__class__.__name__)
+            #every entity has a list of entity types like my `intent` has `happiness`
             for entityType in response[entity]:
-                # logging.info('Checking entityType: %s\n' % entityType)
+                logging.info('Checking entityType: %s\n' % entityType)
                 method = getattr(entityClass, entityType['value'])
-                # logging.info('Calling method: %s\n' % method.__name__)
+                logging.info('Calling method: %s\n' % method.__name__)
                 msgSent = method(psid, entityType['confidence'])
                 msg_sent_count += bool(msgSent)
 
     else:#WitError
         msg = message_dict['wit_error']
         msgSent = send_msg(psid, msg)
-        msg_sent_count += bool(msgSent)        
+        msg_sent_count += bool(msgSent)
 
     logging.info("msg_sent_count: %s\n" % msg_sent_count)
     if msg_sent_count == 0:
@@ -169,7 +190,7 @@ def informUsersAboutNewCompany(data_dict):
             if (user.course in data_dict['course']) and \
                     (user.department in data_dict['department']):
                     send_msg(user.psid, msg)
-    
+
 @shared_task
 def updateUserAboutThisCompany(data_dict, changed_fields):
     company = Company.objects.get(company_name=data_dict['company_name'])
@@ -191,6 +212,7 @@ def updateUserAboutThisCompany(data_dict, changed_fields):
 def gotInactiveUser(psid):
     msg = message_dict['user_invalid']
     send_msg(psid, msg)
+
 
 @periodic_task(run_every=(crontab(minute='*/10')), name="crawl_tpo", ignore_result=True)
 def crawl_tpo():
@@ -216,4 +238,3 @@ def crawl_tpo():
         except Exception as e:
             logging.info("Got Error in updateUserAboutCompany %s" % e)
             logging.info(traceback.format_exc())
-
