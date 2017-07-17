@@ -24,6 +24,10 @@ The bot uses `Django` as backend framework for webhook, `Celery` as asynchronous
 * TPO password as `password`
 * Wit access token as `wit_server_AT`
 
+### Important Points
+
+* Activate python environment before running `celery`
+
 ## Tutorials
 
   * https://realpython.com/blog/python/asynchronous-tasks-with-django-and-celery/

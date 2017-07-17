@@ -101,11 +101,11 @@ message_dict = {
 field_msg_dict = {
 
     'company_profile': 'Company Profile',
-    'updated_at': 'Update Status',
     'x': 'X',
     'xii': 'XII',
     'cgpa': 'CGPA',
     'course': 'Course',
+    'purpose': 'Purpose',
     'department': 'Department',
     'a_backlog': 'Active backlogs allowed',
     't_backlog': 'Total backlogs allowed',

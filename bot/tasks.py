@@ -1,4 +1,6 @@
 from __future__ import absolute_import, unicode_literals
+from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 from celery.utils.log import get_task_logger
 from celery import shared_task
 from celery.task.schedules import crontab
@@ -9,6 +11,7 @@ import json
 from wit import Wit
 from wit.wit import WitError
 from collections import defaultdict
+import traceback
 
 from tpobot.settings import AT, wit_server_AT
 from bot.models import User, Company
@@ -165,9 +168,10 @@ def updateUserAboutThisCompany(data_dict, changed_fields):
     company = Company.objects.get(company_name=data_dict['company_name'])
 
     msg = message_dict['updated_company'].format(data_dict['company_name'])
+    print(changed_fields)
     for field in changed_fields:
         msg += field_msg_dict[field] + ": " + data_dict[field] + "\n"
-    msg += field_msg_dict['updated_at'] +': ' + data_dict['updated_at'] + '\n'
+    msg += data_dict['updated_at'] + '\n'
     msg += "\n\nThis is it for now.\nCya :)"
 
     for user in User.objects.filter(subscribed=True):
@@ -177,7 +181,7 @@ def updateUserAboutThisCompany(data_dict, changed_fields):
 
 
 
-@periodic_task(run_every=(crontab(minute='*/10')), name="crawl_tpo", ignore_result=True)
+@periodic_task(run_every=(crontab(minute='*/1')), name="crawl_tpo", ignore_result=True)
 def crawl_tpo():
     logging.info('Crawling TPO')
     data = spider.crawl()
@@ -190,12 +194,15 @@ def crawl_tpo():
             if data_dict['updated_at'] != company.updated_at:
                 #company updated on TPO portal
                 changed_fields = company.update(data_dict)
-                logging.info(company_name + str(changed_fields))
+                logging.info(data_dict['company_name'] + str(changed_fields))
                 changed_fields.remove('updated_at')
                 # if len(changed_fields):#to be safe/ avoid sending empty msgs
                 updateUserAboutThisCompany(data_dict, changed_fields)
-        except Exception as e:        
-            logging.info("Got a new company", e)
+        except ObjectDoesNotExist:
+            logging.info("Got a new company")
             Company.objects.create(**data_dict)
             informUsersAboutNewCompany(data_dict)
+        except Exception as e:
+            logging.info("Got Error in updateUserAboutCompany %s" % e)
+            logging.info(traceback.format_exc())
 
