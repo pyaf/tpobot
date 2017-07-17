@@ -7,10 +7,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "k_mwj39+7ii533f#oevqhbjm&x#(^dw1*d$m#iite@n$i(n0#-"
 
 #set development as True in heroku env vars
-if os.environ['development'] == 'True':
-    DEBUG = True
-else:
+if os.environ.get('development', '') == 'True':
     DEBUG = False
+else:
+    DEBUG = True
 
 INSTALLED_APPS = [
     'bot',
