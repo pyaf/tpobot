@@ -47,18 +47,21 @@ message_dict = {
 	'features': "Baba is a messenger bot created by a high functioning sociopathic nerd of IIT (BHU) :D\n"\
 				"\nI have got a simple AI brain powered by Wit and has not been trained too much, "\
 				"so please don't use off the track keywords, though a lit bit would work. 😅 \n\n"\
-				"What I currently do:\n"
-				"1. I text you whenever a new company opens for your course and department, "\
-				"you'll get all details of such companies. \n\n"\
-				"What it plans to do in pretty soon:\n"
+				"What I currently do:\n"\
+				"1. Text you whenever a new company opens for your course and department, "\
+				"you'll get all details of such companies.\n"\
+				"2. Text you whenever companies your course and department get any changes in their "\
+				"parameters like willingness deadlines, exam dates, ppt dates, etc.. \n\n"\
+				"What it plans to do in pretty soon:\n"\
 				"1. Set remind you about deadlines of willingness application, ppt dates "\
 				"and exam dates too. B) \n" \
-				"2. Give you info about the companies you ask.\n\n"\
+				"2. Give replies to your queries about companies...\n\n"\
 				"P.S. To know why that nerd made me? you are free to ask me :P",
 
 	'help': "Baba has got you some help:\n\n"\
 			"1. You can ask me to unsubscribe you from from receiving messeges .\n"\
 			"2. You can ask me subscribe your account.\n",
+			
 
 	'deactivate': "Alright pal, It's been a good chat with you, deactivating your account.\n"\
 					"You can ask me to reactivate it if necessary.",
