@@ -55,8 +55,11 @@ class Intent(object):
     def feature(self, psid, confidence):
         if confidence > 0.80:
             msg = message_dict['features']
+            send_msg(psid, msg)
+            msg = message_dict['features1']
+            send_msg(psid, msg)
+            msg = message_dict['features2']
             return send_msg(psid, msg)
-        
 
     def help(self, psid, confidence):
         if confidence > 0.80:

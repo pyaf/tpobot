@@ -30,6 +30,7 @@ message_dict = {
  	'course_set': "Baba has set your course to {0}",
 
     'reg_error': "Oops!, you got me wrong, retry entering it correctly..\n\n"\
+    			 "And you gotta register first, we'll chat afterwards. :)\n"\
     			 "if you're facing issues contact https://m.me/rishabh.ags",
 
 	'email_already_set': "Pal, you already got your email set to {0}",
@@ -46,15 +47,17 @@ message_dict = {
 
 	'features': "Baba is a messenger bot created by a high functioning sociopathic nerd of IIT (BHU) :D\n"\
 				"\nI have got a simple AI brain powered by Wit and has not been trained too much, "\
-				"so please don't use off the track keywords, though a lit bit would work. 😅 \n\n"\
-				"What I currently do:\n"\
+				"so please don't use too off the track keywords 😅 \n\n",
+
+	'features1': "What I currently do:\n"\
 				"1. Text you whenever a new company opens for your course and department, "\
 				"you'll get all details of such companies.\n"\
 				"2. Text you whenever companies your course and department get any changes in their "\
-				"parameters like willingness deadlines, exam dates, ppt dates, etc.. \n\n"\
-				"What it plans to do in pretty soon:\n"\
-				"1. Set remind you about deadlines of willingness application, ppt dates "\
-				"and exam dates too. B) \n" \
+				"parameters like willingness deadlines, exam dates, ppt dates, etc.. \n\n",
+				
+	'features2':"What I plan to do pretty soon:\n"\
+				"1. Remind you about deadlines of willingness application, ppt dates "\
+				"and exam dates etc.. B) \n" \
 				"2. Give replies to your queries about companies...\n\n"\
 				"P.S. To know why that nerd made me? you are free to ask me :P",
 
@@ -81,7 +84,7 @@ message_dict = {
 					"XII cutoff: {6}\n"\
 					"CGPA cutoff: {7}\n"\
 					"Status: {8}\n\n"\
-					"Rest info hasn't been up on TPO portal, will updating you soon.\n"\
+					"Will keep you updated with this company :D.\n"\
 					"Cya :)",
 
 	'updated_company': "Baba has updates to deliver!\n\n"\
@@ -97,7 +100,7 @@ message_dict = {
 				"bante rahege ;P \n\n"\
 				"P.S. This was a joke, it has nothing to do with anything, we respect TPO portal "\
 				"developers they have made a great portal. \n"\
-				"This bot is just for fun (really?)"
+				"Ask for me for help, if you wanna know what you have got to do.",
 
 } 
 
