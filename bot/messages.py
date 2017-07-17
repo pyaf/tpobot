@@ -20,7 +20,7 @@ message_dict = {
 
 
     'not_iit_email': "Oops!, seems like you didn't enter your official email id\n"\
-    				 "As I am running on a free tier heroku server (which has got limitations) "\
+    				 "As I am running on a heroku server, which costs 7$ pm. Don't misuse this. "\
     				 "I cannot afford offering services to others,.\nIf you ain't student of IIT (BHU), please"\
     				 " don't register ,.. Bhawnao ko samjho yaaar 😅",
 
