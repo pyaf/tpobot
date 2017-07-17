@@ -181,7 +181,7 @@ def updateUserAboutThisCompany(data_dict, changed_fields):
 
 
 
-@periodic_task(run_every=(crontab(minute='*/1')), name="crawl_tpo", ignore_result=True)
+@periodic_task(run_every=(crontab(minute='*/10')), name="crawl_tpo", ignore_result=True)
 def crawl_tpo():
     logging.info('Crawling TPO')
     data = spider.crawl()
