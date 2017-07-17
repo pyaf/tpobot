@@ -91,6 +91,8 @@ message_dict = {
 					"Will keep you updated with this company :D.\n"\
 					"Cya :)",
 
+	'first_update':
+
 	'updated_company': "Baba has updates to deliver!\n\n"\
 						"{0} got updated on the portal\n\n"\
 						"Updated fields are: \n\n",
@@ -126,7 +128,7 @@ field_msg_dict = {
     'willingness_dead': 'Willingness deadline',
     'btech_ctc': 'B.Tech CTC',
     'idd_imd_ctc':'IDD/IMD CTC',
-    'jd': 'JD',
+    # 'jd': 'JD',
 }
 
 # "TPO developers ko to `सीनेमा` ne barbaad karke rakkha hai.. ;P\n"

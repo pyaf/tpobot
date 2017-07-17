@@ -85,6 +85,22 @@ class Intent(object):
             send_msg(psid, msg)
             return send_msg(psid, message_dict['lol'])
 
+    def company(self, psid, confidence):
+        if confidence > 0.90:
+            user = User.objects.get(psid=psid)
+
+            for company in Company.objects.filter(course__contains=user.course,
+                                     department__contains=user.department):
+                msg = 'Companies opened so far for you :\n\n'
+                send_msg(psid, msg)
+                c = company.__dict__
+                msg = c['company_name']
+                for field in field_msg_dict:
+                    msg += field_msg_dict[field] + ': ' + c[field] + '\n'
+                send_msg(psid, msg)
+
+            msg = "That's it for now, will keep updating you :)"
+            return send_msg(psid, msg)
 
 class Greeting(object):
 

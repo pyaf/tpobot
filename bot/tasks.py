@@ -144,6 +144,11 @@ def analyseMessage(psid, message):
         msg = message_dict['no_idea']
         send_msg(psid, msg)
 
+#for new users
+# @shared_task
+# def updateAboutCurrentCompanies(psid):
+
+
 
 @shared_task
 def informUsersAboutNewCompany(data_dict):
@@ -158,10 +163,12 @@ def informUsersAboutNewCompany(data_dict):
                     data_dict['cgpa'],
                     data_dict['status'],
                 )
+
     for user in User.objects.all():
-        if (user.course in data_dict['course']) and \
-                (user.department in data_dict['department']):
-                send_msg(user.psid, msg)
+        if user.valid and user.subscribed and user.profile_completed:
+            if (user.course in data_dict['course']) and \
+                    (user.department in data_dict['department']):
+                    send_msg(user.psid, msg)
     
 @shared_task
 def updateUserAboutThisCompany(data_dict, changed_fields):
@@ -175,9 +182,10 @@ def updateUserAboutThisCompany(data_dict, changed_fields):
     msg += "\n\nThis is it for now.\nCya :)"
 
     for user in User.objects.filter(subscribed=True):
-        if (user.course in company.course) and \
-            (user.department in company.department):
-            send_msg(user.psid, msg)
+        if user.valid and user.subscribed and user.profile_completed:
+            if (user.course in company.course) and \
+                (user.department in company.department):
+                send_msg(user.psid, msg)
 
 @shared_task
 def gotInactiveUser(psid):
