@@ -50,7 +50,7 @@ def updateNewUser(psid):
                              department__contains=user.department):
         # print(company)
         c = company.__dict__
-        msg = c['company_name']
+        msg = c['company_name'] + '\n\n'
         for field in field_msg_dict:
             if c[field]:#if not none
                 msg += field_msg_dict[field] + ': ' + c[field] + '\n'
