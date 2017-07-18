@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models import Company, User
 
-class CompanyAdmin(admin.ModelAdmin):
 
+class CompanyAdmin(admin.ModelAdmin):
 
     list_max_show_all = 500
     list_display = ('company_name', 'modified_date', 'purpose')
@@ -10,5 +10,4 @@ class CompanyAdmin(admin.ModelAdmin):
     search_fields = ('company_name',)
 
 admin.site.register(Company, CompanyAdmin)
-
 admin.site.register(User)

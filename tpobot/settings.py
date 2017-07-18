@@ -107,7 +107,6 @@ CELERY_TIMEZONE = 'Africa/Nairobi'
 
 #access_token
 AT = os.environ.get('AT', '')
-
 #verify token
 VT = os.environ.get('VT', '')
 

@@ -18,8 +18,7 @@ class IndexView(generic.View):
         return render(self.request, self.template_name, {})
 
 
-
-class BotView(generic.View):
+class Webhook(generic.View):
     def get(self, request, *args, **kwargs):
 	    if self.request.GET['hub.verify_token'] == VT:
 	        return HttpResponse(self.request.GET['hub.challenge'])
@@ -52,5 +51,6 @@ class BotView(generic.View):
                             # print('\nnew user,, yaaayyye')
                             newUser.delay(psid)
         except Exception as e:
+            # print(incoming_message)
             print("Exception: ", e)
         return HttpResponse()
