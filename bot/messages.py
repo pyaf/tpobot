@@ -42,7 +42,7 @@ message_dict = {
 
     'course_already_set': "Pal, you already got your email set to {0}",
 
-    'reg_success': "That's it!, you have successfully registered!, your email id "\
+    'reg_success': "And congratulations! 🎉 you have successfully registered!, your email id "\
                     "will be verified soon. :) \n\nIf found misleading or wrong, I'll find you and I'll "\
                     "deregister you ;P \n\n"\
                     "Ask for features to know what I've got for you in my Jhola B) \n\n"\
@@ -108,6 +108,10 @@ message_dict = {
                 "P.S. This was a joke, it has nothing to do with anything, we respect TPO portal "\
                 "developers they have made a great portal. \n"\
                 "Ask for me for help, if you wanna know what you have got to do.",
+
+    'idd_imd_4th_year': "Ops!, you are from 4rth year IDD/IMD, I don't wanna disturb you with updates. \n"\
+                    "I'll have to set your account Invalid.\n\n"\
+                    "For further queries contact https://m.me/rishabh.ags/"
 
 }
 

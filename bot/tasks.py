@@ -33,26 +33,6 @@ if os.environ.get('development', '') == 'True':
 else:
     mins = 15
 
-def updateNewUser(psid):
-    user = User.objects.get(psid=psid)
-    #logging.info('Gotta update new user %s ', user)
-    msg = 'Companies opened for you so far:\n\n'
-    sendFBText(psid, msg)
-    for company in Company.objects.filter(course__contains=user.course,
-                             department__contains=user.department):
-        c = company.__dict__
-
-        msg = c['company_name'] + '\n\n'
-        for field in field_msg_dict:
-            if c[field]:#if not none
-                msg += field_msg_dict[field] + ': ' + c[field] + '\n'
-
-        #logging.info(msg)
-        sendFBText(psid, msg)
-
-    msg = "That's it for now, will keep updating you :)"
-    return sendFBText(psid, msg)
-
 
 @shared_task
 def completeProfile(psid, received_msg):
@@ -71,15 +51,24 @@ def completeProfile(psid, received_msg):
             if len(temp) != 5: #like eee15
                 msg = message_dict['invalid_email']
                 return sendFBText(psid, msg)
-            user.year = temp[3:]
-            user.department = temp[:3]#eee
-            user.email = value
-            user.save()
-            msg = message_dict['email_set'].format(value)
-            sendFBText(psid, msg)
-            msg = message_dict['get_course']
-            return sendFBText(psid, msg)
-
+            try:
+                if int(temp[3:]) >= 15:#let facchas get updates
+                    user.purpose = 'internship'
+                else:
+                    user.purpose = 'placement'
+                user.year = int(temp[3:])
+                user.department = temp[:3]#eee
+                user.email = value
+                user.save()
+                print('user course: %s\n\n' %user.purpose)
+                msg = message_dict['email_set'].format(value)
+                sendFBText(psid, msg)
+                msg = message_dict['get_course']
+                return sendFBText(psid, msg)
+            except Exception as e:
+                print(e)
+                msg = message_dict['invalid_email']
+                return sendFBText(psid, msg)
         else:
             msg = message_dict['not_iit_email']
             return sendFBText(psid, msg)
@@ -91,6 +80,12 @@ def completeProfile(psid, received_msg):
 
         user.course = value
         user.profile_completed = True
+
+        if (value=='idd' or value=='imd') and user.year == 14:
+            user.valid=False#idd 4rth yr peeps, zivan ka koi purpose nhi
+            user.save()
+            msg = message_dict['idd_imd_4th_year']
+            return sendFBText(psid, msg)
         user.save()
         msg = message_dict['course_set'].format(value)
         sendFBText(psid, msg)
@@ -147,18 +142,46 @@ def analyseMessage(psid, message):
         sendFBText(psid, msg)
 
 
+def updateNewUser(psid):
+    user = User.objects.get(psid=psid)
+    #logging.info('Gotta update new user %s ', user)
+    companies = Company.objects.filter(course__icontains=user.course,
+                             department__icontains=user.department,
+                             purpose__icontains=user.purpose)
+
+    if len(companies):
+         msg = 'Companies opened for you so far:\n\n'
+         sendFBText(psid, msg)
+    else:
+        msg = 'No company is open for you as for now, will inform you when one opens :)'
+        return sendFBText(psid, msg)
+
+    for company in companies:
+        c = company.__dict__
+
+        msg = c['company_name'] + '\n\n'
+        for field in field_msg_dict:
+            if c[field]:#if not none
+                msg += field_msg_dict[field] + ': ' + c[field] + '\n'
+
+        #logging.info(msg)
+        sendFBText(psid, msg)
+
+    msg = "That's it for now, will keep updating you :)"
+    return sendFBText(psid, msg)
+
 @shared_task
 def informUsersAboutNewCompany(data_dict):
     msg = message_dict['new_company'].format(**data_dict)
     print('\n\n\n informUsersAboutNewCompany')
-    print(data_dict)
-    print(msg)
     for user in User.objects.filter(valid=True,
                             subscribed=True,
                             profile_completed=True,
                             course__in=data_dict['course'].split(),
-                            department__in=data_dict['department'].split()):
-            sendFBText(user.psid, msg)
+                            department__in=data_dict['department'].split(),
+                            purpose__in=data_dict['purpose'].lower().split()):
+
+        sendFBText(user.psid, msg)
 
 
 @shared_task
@@ -179,8 +202,9 @@ def updateUserAboutThisCompany(data_dict, changed_fields):
                             subscribed=True,
                             profile_completed=True,
                             course__in=company.course.split(),
-                            department__in=company.department.split()):
-                sendFBText(user.psid, final_msg)
+                            department__in=company.department.split(),
+                            purpose__in=company.purpose.lower().split()):
+        sendFBText(user.psid, final_msg)
 
 
 @shared_task
