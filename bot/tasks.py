@@ -11,6 +11,7 @@ import traceback
 import requests
 import logging
 import json
+import os
 
 from tpobot.settings import AT
 from bot.models import User, Company
@@ -27,6 +28,10 @@ entityTypes = {
     'question': Question(),
 }#all classes imported from intentParser
 
+if os.environ.get('development', '') == 'True':
+    mins = 1
+else:
+    mins = 20
 
 def updateNewUser(psid):
     user = User.objects.get(psid=psid)
@@ -184,7 +189,7 @@ def gotInactiveUser(psid):
     sendFBText(psid, msg)
 
 
-@periodic_task(run_every=(crontab(minute='*/1')), name="crawl_tpo", ignore_result=True)
+@periodic_task(run_every=(crontab(minute='*/%d' %mins)), name="crawl_tpo", ignore_result=True)
 def crawl_tpo():
     logging.info('Crawling TPO')
     data = crawl()#defined in spider

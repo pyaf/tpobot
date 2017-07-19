@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 message_dict = {
 
     'welcome': "Hi! TPO Baba is here to give you updates about TPO portal, set willingness reminders, ppt "\
@@ -7,7 +8,7 @@ message_dict = {
     'greetings':  "Hello pal :)",
 
     'haalchaal': "hamaar to mauj ahaai guru 🙏, tohaar batawa kaa haal chaal bate?"\
-    			 " ;P",
+                " ;P",
 
     'no_idea':  "Oops, didn't get you, Baba is a simple AI bot not Jarvis, don't be so cryptic. 😅\n"\
                 "Baba has gotta master, Baba will learn this soon. B) \n\n"\
@@ -112,23 +113,23 @@ message_dict = {
 
 field_msg_dict = {
 
-    'company_profile': 'Company Profile',
-    'x': 'X',
-    'xii': 'XII',
-    'cgpa': 'CGPA',
-    'course': 'Course',
-    'purpose': 'Purpose',
-    'department': 'Department',
-    'a_backlog': 'Active backlogs allowed',
-    't_backlog': 'Total backlogs allowed',
-    'ppt_date': 'PPT date',
-    'exam_date': 'Exam date',
-    'status': 'Status',
-    'branch_issue_dead': 'Branch issue deadline',
-    'willingness_dead': 'Willingness deadline',
-    'btech_ctc': 'B.Tech CTC',
-    'idd_imd_ctc':'IDD/IMD CTC',
-    # 'jd': 'JD',
+            'company_profile': 'Company Profile',
+            'x': 'X',
+            'xii': 'XII',
+            'cgpa': 'CGPA',
+            'course': 'Course',
+            'purpose': 'Purpose',
+            'department': 'Department',
+            'a_backlog': 'Active backlogs allowed',
+            't_backlog': 'Total backlogs allowed',
+            'ppt_date': 'PPT date',
+            'exam_date': 'Exam date',
+            'status': 'Status',
+            'branch_issue_dead': 'Branch issue deadline',
+            'willingness_dead': 'Willingness deadline',
+            'btech_ctc': 'B.Tech CTC',
+            'idd_imd_ctc':'IDD/IMD CTC',
+            # 'jd': 'JD',
 }
 
 # "TPO developers ko to `सीनेमा` ne barbaad karke rakkha hai.. ;P\n"
