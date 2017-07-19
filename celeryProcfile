@@ -1,2 +1,2 @@
-worker: celery worker --app=tpobot.celeryapp -f worker.log -loglevel=INFO
-beat: celery -A tpobot beat -f beat.log -loglevel=INFO
+worker: celery worker --app=tpobot.celeryapp -f worker.log -l=INFO
+beat: celery -A tpobot beat -f beat.log -l=INFO
