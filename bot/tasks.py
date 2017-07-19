@@ -31,7 +31,7 @@ entityTypes = {
 if os.environ.get('development', '') == 'True':
     mins = 1
 else:
-    mins = 20
+    mins = 15
 
 def updateNewUser(psid):
     user = User.objects.get(psid=psid)
@@ -71,7 +71,7 @@ def completeProfile(psid, received_msg):
             if len(temp) != 5: #like eee15
                 msg = message_dict['invalid_email']
                 return sendFBText(psid, msg)
-
+            user.year = temp[3:]
             user.department = temp[:3]#eee
             user.email = value
             user.save()

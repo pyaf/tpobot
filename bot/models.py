@@ -55,6 +55,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=150, null=True, blank=True)
     last_name = models.CharField(max_length=150, null=True, blank=True)
     email = models.CharField(max_length=100, null=True, blank=True)
+    year = models.CharField(max_length=10, null=True, blank=True)
     profile_pic = models.TextField(validators=[URLValidator()], null=True, blank=True)
     gender = models.CharField(max_length=100, null=True, blank=True)
     course = models.CharField(max_length=50, null=True, blank=True)
