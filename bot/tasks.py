@@ -21,7 +21,7 @@ from bot.apis import callWit, getUserFromGraphAPI, sendFBText
 from bot.messages import *
 
 logger = get_task_logger(__name__)
-
+# print('logger', __name__)
 entityTypes = {
     'intent': Intent(),
     'greetings': Greeting(),
@@ -94,9 +94,9 @@ def completeProfile(psid, received_msg):
         user.save()
         msg = message_dict['course_set'].format(value)
         sendFBText(psid, msg)
+        updateNewUser(psid)
         msg = message_dict['reg_success']
-        sendFBText(psid, msg)
-        return updateNewUser(psid)
+        return sendFBText(psid, msg)
 
     else:
         msg = message_dict['reg_error']
