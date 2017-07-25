@@ -13,7 +13,7 @@ The bot uses `Django` as backend framework for webhook, `Celery` as asynchronous
 * Use ngrok with `./ngrok http 8000`
 * Start redis-server with `redis-server`
 * Run Celery workers with `celery -A tpobot worker -l info` 
-* Run Celery beat with `celery -A tpobot beatl info`
+* Run Celery beat with `celery -A tpobot beat -l info`
 
 
 ### Set environment variables
