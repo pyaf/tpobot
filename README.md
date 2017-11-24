@@ -4,6 +4,8 @@ A facebook messenger bot which gives real time updates of [Training and Placemen
 
 The bot uses `Django` as backend framework for webhook, `Celery` as asynchronous task manager, `Redis` as message broker, `Wit` as intent parser, `sqlite3` as database for development on local machine and `postgres` for production on heroku, python's `requests` module for web crawling and `Ngrok` to setup a secure tunnel to localhost for development purposes.
 
+The bot runs three jobs (1 Web server, 1 celery worker and 1 celery beat) on two dynos of heroku. 😎
+
 ## Installation 
 
 * Install required dependencies `pip install -r requirements.txt`
