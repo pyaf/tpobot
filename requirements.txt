@@ -13,7 +13,7 @@ cryptography==1.9
 cssselect==1.0.1
 dj-database-url==0.4.1
 Django==1.11.1
-django-celery-results==1.0.1
+django-celery-results==2.4.0
 gunicorn==19.6.0
 hyperlink==17.2.1
 idna==2.5
